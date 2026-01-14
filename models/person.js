@@ -1,17 +1,32 @@
 const mongoose = require('mongoose')
 
+// Get the URL from the environment variable
+const url = process.env.MONGODB_URI
+
+console.log('connecting to', url)
+
+mongoose.set('strictQuery', false)
+
+// Connect to the database
+mongoose.connect(url)
+  .then(result => {
+    console.log('connected to MongoDB')
+  })
+  .catch((error) => {
+    console.log('error connecting to MongoDB:', error.message)
+  })
+
 const personSchema = new mongoose.Schema({
   name: {
     type: String,
-    minLength: 3, // Exercise 3.19: Name must be >= 3 characters
+    minLength: 3,
     required: true
   },
   number: {
     type: String,
-    minLength: 8, // Exercise 3.20: Total length >= 8
+    minLength: 8,
     required: true,
     validate: {
-      // Exercise 3.20: Custom validator for the hyphen pattern
       validator: function(v) {
         return /^\d{2,3}-\d+$/.test(v)
       },
@@ -20,6 +35,7 @@ const personSchema = new mongoose.Schema({
   }
 })
 
+// ... keep your existing transform and export logic ...
 // Formatting logic (id conversion) remains the same
 personSchema.set('toJSON', {
   transform: (document, returnedObject) => {

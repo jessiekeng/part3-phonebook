@@ -22,7 +22,8 @@ const Person = mongoose.model('Person', personSchema)
 // Logic for LISTING all entries
 if (process.argv.length === 3) {
   console.log('phonebook:')
-  Person.find({}).then(result => {
+  Person.find({}).then(result => { 
+    // Here 'result' IS used for the forEach, so keep it!
     result.forEach(person => {
       console.log(`${person.name} ${person.number}`)
     })
@@ -40,7 +41,7 @@ if (process.argv.length > 3) {
     number: number,
   })
 
-  person.save().then(result => {
+  person.save().then(() => { // Changed 'result' to '()'
     console.log(`added ${name} number ${number} to phonebook`)
     mongoose.connection.close()
   })

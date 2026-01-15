@@ -54,8 +54,8 @@ app.put('/api/persons/:id', (request, response, next) => {
 
   // runValidators: true is required for Exercise 3.19
   Person.findByIdAndUpdate(
-    request.params.id, 
-    { name, number }, 
+    request.params.id,
+    { name, number },
     { new: true, runValidators: true, context: 'query' }
   )
     .then(updatedPerson => updatedPerson ? response.json(updatedPerson) : response.status(404).end())

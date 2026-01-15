@@ -9,7 +9,7 @@ mongoose.set('strictQuery', false)
 
 // Connect to the database
 mongoose.connect(url)
-  .then(result => {
+  .then(() => { // Changed 'result' to '()'
     console.log('connected to MongoDB')
   })
   .catch((error) => {
